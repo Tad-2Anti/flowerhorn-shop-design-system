@@ -1,0 +1,10 @@
+{
+  "name": "flowerhorn-shop",
+  "version": "1.0.0",
+  "description": "FlowerHorn Shop — Aquarium fish e-commerce storefront",
+  "private": true,
+  "scripts": {
+    "start": "npx serve ui_kits/storefront -p 3000 --no-clipboard",
+    "dev": "npx live-server ui_kits/storefront --port=3000 --open"
+  }
+}

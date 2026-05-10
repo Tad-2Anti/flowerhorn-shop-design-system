@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowerHorn Shop — Premium Aquarium Fish · Madurai</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: #f2f4f3; min-height: 100vh; }
+  #root { min-height: 100vh; display: flex; flex-direction: column; }
+  input, select, button, textarea { font-family: 'DM Sans', sans-serif; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #f2f4f3; }
+  ::-webkit-scrollbar-thumb { background: #9ca3af; border-radius: 50px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components/Toast.jsx"></script>
+<script type="text/babel" src="components/Header.jsx"></script>
+<script type="text/babel" src="components/Footer.jsx"></script>
+<script type="text/babel" src="components/CartDrawer.jsx"></script>
+<script type="text/babel" src="components/WishlistDrawer.jsx"></script>
+<script type="text/babel" src="components/HomePage.jsx"></script>
+<script type="text/babel" src="components/ShopPage.jsx"></script>
+<script type="text/babel" src="components/ProductPage.jsx"></script>
+<script type="text/babel" src="components/CareGuidesPage.jsx"></script>
+<script type="text/babel" src="components/CheckoutPage.jsx"></script>
+
+<script type="text/babel">
+// Placeholder gradients — replace with real fish photography
+const FISH_BG = "linear-gradient(180deg, #0d1810 0%, #162418 100%)";
+const ACC_BG  = "linear-gradient(180deg, #111820 0%, #1c2535 100%)";
+
+const PRODUCTS = [
+  { id: 1,  name: "Red Dragon Flowerhorn",         category: "flowerhorn", price: 3500, size: "5–6 inch",  age: "Adult Male",    inStock: true,  isNew: true,  rating: 4.9, reviews: 48,  bg: FISH_BG, temp: "26–29°C", ph: "7.0–7.8", diet: "Pellets, live food",       tank: "200L min" },
+  { id: 2,  name: "Golden Base Flowerhorn",        category: "flowerhorn", price: 2200, oldPrice: 2800, size: "4–5 inch",  age: "Juvenile",      inStock: true,  isSale: true, rating: 4.7, reviews: 31,  bg: FISH_BG, temp: "26–29°C", ph: "7.0–7.5", diet: "Pellets, brine shrimp",    tank: "150L min" },
+  { id: 3,  name: "Kamfa Flowerhorn",              category: "flowerhorn", price: 5000, size: "6–7 inch",  age: "Adult",         inStock: false,               rating: 5.0, reviews: 12,  bg: FISH_BG, temp: "27–30°C", ph: "7.2–8.0", diet: "Pellets, earthworms",      tank: "250L min" },
+  { id: 4,  name: "Zhen Zhu Flowerhorn",           category: "flowerhorn", price: 4200, size: "5–6 inch",  age: "Adult Male",    inStock: true,               rating: 4.8, reviews: 22,  bg: FISH_BG, temp: "26–28°C", ph: "7.0–7.6", diet: "Pellets, frozen food",     tank: "200L min" },
+  { id: 5,  name: "Oscar Cichlid",                 category: "cichlid",    price: 800,  size: "3–4 inch",  age: "Juvenile",      inStock: true,  isNew: true,  rating: 4.5, reviews: 67,  bg: FISH_BG, temp: "23–27°C", ph: "6.0–8.0", diet: "Pellets, insects",         tank: "100L min" },
+  { id: 6,  name: "Convict Cichlid Pair",          category: "cichlid",    price: 650,  size: "3 inch",    age: "Breeding Pair", inStock: true,               rating: 4.3, reviews: 29,  bg: FISH_BG, temp: "20–26°C", ph: "6.5–8.0", diet: "Omnivore pellets",         tank: "80L min" },
+  { id: 7,  name: "Fancy Oranda Goldfish",         category: "goldfish",   price: 450,  size: "3–4 inch",  age: "Young Adult",   inStock: true,               rating: 4.6, reviews: 55,  bg: FISH_BG, temp: "18–23°C", ph: "7.0–8.0", diet: "Goldfish pellets, veg",    tank: "100L min" },
+  { id: 8,  name: "Premium Aquarium Filter 500L/hr", category: "accessory",price: 1850, size: "–",         age: "–",             inStock: true,               rating: 4.6, reviews: 89,  bg: ACC_BG,  temp: "–",       ph: "–",       diet: "–",                       tank: "Up to 500L" },
+  { id: 9,  name: "LED Aquarium Light 90cm",       category: "accessory",  price: 1200, size: "–",         age: "–",             inStock: true,  isNew: true,  rating: 4.4, reviews: 34,  bg: ACC_BG,  temp: "–",       ph: "–",       diet: "–",                       tank: "60–90cm tanks" },
+  { id: 10, name: "Flowerhorn Growth Pellets 1kg", category: "accessory",  price: 580,  size: "–",         age: "–",             inStock: true,               rating: 4.8, reviews: 112, bg: ACC_BG,  temp: "–",       ph: "–",       diet: "–",                       tank: "All sizes" },
+];
+
+// ——— About page (inline, lightweight) ———
+function AboutPage({ setPage }) {
+  const s = {
+    hero: { background: '#0a0f0d', padding: '80px 24px', textAlign: 'center' },
+    heroTitle: { fontSize: 'clamp(28px,4vw,48px)', fontWeight: 800, color: '#faf4d8', letterSpacing: '-0.02em', marginBottom: 16 },
+    heroSub: { fontSize: 18, color: 'rgba(250,244,216,0.6)', maxWidth: 560, margin: '0 auto 32px', lineHeight: 1.6, fontWeight: 400 },
+    body: { maxWidth: 900, margin: '0 auto', padding: '48px 24px', display: 'flex', flexDirection: 'column', gap: 20 },
+    card: { background: '#fff', borderRadius: 8, padding: 32, boxShadow: '0 2px 8px rgba(0,0,0,0.07)' },
+    h2: { fontSize: 20, fontWeight: 800, color: '#090909', marginBottom: 12 },
+    p: { fontSize: 15, color: '#333', lineHeight: 1.75, fontWeight: 400 },
+    contactGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 12 },
+    contactItem: { background: '#f2f4f3', borderRadius: 6, padding: '14px 18px' },
+    contactLabel: { fontSize: 10, fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9ca3af', marginBottom: 4 },
+    contactVal: { fontSize: 13, fontWeight: 700, color: '#090909', lineHeight: 1.5, whiteSpace: 'pre-line' },
+  };
+  return (
+    <div style={{ fontFamily: "'DM Sans', sans-serif" }}>
+      <div style={s.hero}>
+        <h1 style={s.heroTitle}>About FlowerHorn Shop</h1>
+        <p style={s.heroSub}>Madurai's most trusted aquarium fish store, serving hobbyists since 2012.</p>
+        <button style={{ background: '#8c2515', color: '#fff', border: 'none', borderRadius: 50, padding: '12px 28px', fontSize: 15, fontWeight: 800, cursor: 'pointer' }} onClick={() => setPage('shop')}>Shop Now →</button>
+      </div>
+      <div style={s.body}>
+        <div style={s.card}>
+          <h2 style={s.h2}>Our Story</h2>
+          <p style={s.p}>FlowerHorn Shop began as a passion project in 2012 in Iyer Bungala, Madurai. What started as a small home-based setup has grown into a full storefront at #80, Kannimandai Main Road — one of Madurai's go-to destinations for aquarium fish and accessories.</p>
+          <p style={{ ...s.p, marginTop: 12 }}>We specialise in premium flowerhorn fish — known for their striking nuchal humps and vibrant markings. Every fish in our store is personally selected for health, colour, and temperament. We believe in responsible fishkeeping and are always happy to offer care guidance.</p>
+        </div>
+        <div style={s.card}>
+          <h2 style={s.h2}>Contact & Visit</h2>
+          <div style={s.contactGrid}>
+            {[
+              ['Address',  '#80, Kannimadai Main Road,\nIyer Bungala, Madurai-625 014'],
+              ['Phone',    '+91 XXXXX XXXXX\nWhatsApp welcome'],
+              ['Hours',    'Mon–Sat: 9am – 7pm\nSunday: 10am – 5pm'],
+              ['Delivery', 'Online orders across\nTamil Nadu'],
+            ].map(([l, v]) => (
+              <div key={l} style={s.contactItem}>
+                <div style={s.contactLabel}>{l}</div>
+                <div style={s.contactVal}>{v}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={s.card}>
+          <h2 style={s.h2}>Live Fish Guarantee</h2>
+          <p style={s.p}>We ship live fish Monday–Thursday in insulated, oxygen-supplemented boxes. If your fish arrives dead or injured, contact us with a photo within 24 hours of delivery for a full replacement or refund. No questions asked.</p>
+        </div>
+        <div style={s.card}>
+          <h2 style={s.h2}>Care & Support</h2>
+          <p style={s.p}>New to fishkeeping? We're here to help. Read our detailed care guides, or WhatsApp us directly — we're happy to advise on tank setup, compatibility, feeding, and water chemistry. Responsible fishkeeping is part of what we do.</p>
+          <button style={{ marginTop: 16, background: '#8c2515', color: '#fff', border: 'none', borderRadius: 50, padding: '10px 22px', fontSize: 13, fontWeight: 800, cursor: 'pointer' }} onClick={() => setPage('guides')}>Read Care Guides →</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ——— App root ———
+function App() {
+  const [page, setPage]                     = React.useState('home');
+  const [selectedProduct, setSelectedProduct] = React.useState(null);
+  const [cartItems, setCartItems]           = React.useState([]);
+  const [cartOpen, setCartOpen]             = React.useState(false);
+  const [wishlistItems, setWishlistItems]   = React.useState(() => {
+    try { return JSON.parse(localStorage.getItem('fh_wishlist') || '[]'); } catch { return []; }
+  });
+  const [wishlistOpen, setWishlistOpen]     = React.useState(false);
+  const [searchQuery, setSearchQuery]       = React.useState('');
+  const [toasts, setToasts]                 = React.useState([]);
+
+  // — Derived —
+  const cartCount    = cartItems.reduce((sum, i) => sum + i.qty, 0);
+  const wishlistIds  = React.useMemo(() => new Set(wishlistItems.map(i => i.id)), [wishlistItems]);
+
+  // — Toast helper —
+  const addToast = React.useCallback((msg, type = 'success') => {
+    const id = Date.now() + Math.random();
+    setToasts(prev => [...prev, { id, msg, type }]);
+    setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 3000);
+  }, []);
+
+  // — Cart —
+  const handleAddToCart = React.useCallback((product) => {
+    setCartItems(prev => {
+      const existing = prev.find(i => i.id === product.id);
+      if (existing) return prev.map(i => i.id === product.id ? { ...i, qty: i.qty + 1 } : i);
+      return [...prev, { ...product, qty: 1 }];
+    });
+    setCartOpen(true);
+  }, []);
+
+  const handleUpdateQty = React.useCallback((id, qty) => {
+    if (qty < 1) { setCartItems(prev => prev.filter(i => i.id !== id)); return; }
+    setCartItems(prev => prev.map(i => i.id === id ? { ...i, qty } : i));
+  }, []);
+
+  const handleOrderComplete = React.useCallback(() => {
+    setCartItems([]);
+    setCartOpen(false);
+  }, []);
+
+  // — Wishlist —
+  const handleToggleWishlist = React.useCallback((product) => {
+    const currentlyIn = wishlistIds.has(product.id);
+    setWishlistItems(prev => {
+      const next = currentlyIn
+        ? prev.filter(i => i.id !== product.id)
+        : [...prev, product];
+      try { localStorage.setItem('fh_wishlist', JSON.stringify(next)); } catch {}
+      return next;
+    });
+    addToast(currentlyIn ? `Removed from wishlist` : `♡ Saved to wishlist`);
+  }, [addToast, wishlistIds]);
+
+  const handleMoveToCart = React.useCallback((product) => {
+    handleAddToCart(product);
+    setWishlistItems(prev => {
+      const next = prev.filter(i => i.id !== product.id);
+      try { localStorage.setItem('fh_wishlist', JSON.stringify(next)); } catch {}
+      return next;
+    });
+    addToast(`${product.name} moved to cart`, 'success');
+  }, [handleAddToCart, addToast]);
+
+  const handleRemoveFromWishlist = React.useCallback((id) => {
+    setWishlistItems(prev => {
+      const next = prev.filter(i => i.id !== id);
+      try { localStorage.setItem('fh_wishlist', JSON.stringify(next)); } catch {}
+      return next;
+    });
+  }, []);
+
+  // — Search —
+  const handleSearch = React.useCallback((query) => {
+    setSearchQuery(query);
+    if (query.trim()) {
+      setPage('shop');
+      setSelectedProduct(null);
+    }
+  }, []);
+
+  // — Navigation —
+  const handleProductClick = React.useCallback((product) => {
+    setSelectedProduct(product);
+    setPage('product');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  const handleSetPage = React.useCallback((p) => {
+    setPage(p);
+    if (p !== 'product') setSelectedProduct(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  const handleOpenCart = React.useCallback(() => {
+    setCartOpen(true);
+    setPage(prev => prev === 'checkout' ? 'shop' : prev);
+  }, []);
+
+  const currentNavPage = (page === 'product' || page === 'checkout') ? 'shop' : page;
+
+  return (
+    <div id="root" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Header
+        cartCount={cartCount}
+        onCartOpen={() => setCartOpen(true)}
+        currentPage={currentNavPage}
+        setPage={handleSetPage}
+        wishlistCount={wishlistItems.length}
+        onWishlistOpen={() => setWishlistOpen(true)}
+        onSearch={handleSearch}
+        searchQuery={searchQuery}
+      />
+
+      <main style={{ flex: 1 }}>
+        {page === 'home' && (
+          <HomePage
+            products={PRODUCTS}
+            onProductClick={handleProductClick}
+            onAddToCart={handleAddToCart}
+            setPage={handleSetPage}
+            wishlistIds={wishlistIds}
+            onToggleWishlist={handleToggleWishlist}
+          />
+        )}
+        {page === 'shop' && (
+          <ShopPage
+            products={PRODUCTS}
+            onProductClick={handleProductClick}
+            onAddToCart={handleAddToCart}
+            searchQuery={searchQuery}
+            wishlistIds={wishlistIds}
+            onToggleWishlist={handleToggleWishlist}
+          />
+        )}
+        {page === 'product' && selectedProduct && (
+          <ProductPage
+            product={selectedProduct}
+            allProducts={PRODUCTS}
+            onAddToCart={handleAddToCart}
+            onBack={() => handleSetPage('shop')}
+            onProductClick={handleProductClick}
+            isWishlisted={wishlistIds.has(selectedProduct.id)}
+            onToggleWishlist={handleToggleWishlist}
+          />
+        )}
+        {page === 'about'    && <AboutPage setPage={handleSetPage} />}
+        {page === 'guides'   && <CareGuidesPage setPage={handleSetPage} />}
+        {page === 'checkout' && (
+          <CheckoutPage
+            cartItems={cartItems}
+            setPage={handleSetPage}
+            onOrderComplete={handleOrderComplete}
+            onOpenCart={handleOpenCart}
+          />
+        )}
+      </main>
+
+      <Footer setPage={handleSetPage} />
+
+      {cartOpen && (
+        <CartDrawer
+          items={cartItems}
+          onClose={() => setCartOpen(false)}
+          onUpdateQty={handleUpdateQty}
+          onRemove={(id) => setCartItems(prev => prev.filter(i => i.id !== id))}
+          setPage={handleSetPage}
+          onCheckout={() => { setCartOpen(false); handleSetPage('checkout'); }}
+        />
+      )}
+
+      {wishlistOpen && (
+        <WishlistDrawer
+          items={wishlistItems}
+          onClose={() => setWishlistOpen(false)}
+          onMoveToCart={handleMoveToCart}
+          onRemove={handleRemoveFromWishlist}
+          setPage={handleSetPage}
+        />
+      )}
+
+      <Toast toasts={toasts} />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>

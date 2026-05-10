@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/ui_kits/storefront/index.html" },
+    { "source": "/index.html", "destination": "/ui_kits/storefront/index.html" },
+    { "source": "/components/(.*)", "destination": "/ui_kits/storefront/components/$1" },
+    { "source": "/assets/(.*)", "destination": "/ui_kits/storefront/assets/$1" }
+  ]
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: #f2f4f3; padding: 20px; }
+  .grid { display: flex; flex-direction: column; gap: 14px; }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .section-title { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #9ca3af; }
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 50px; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+  .badge-red { background: #C1321A; color: #fff; }
+  .badge-gold { background: #E8A920; color: #090909; }
+  .badge-green { background: #357e51; color: #fff; }
+  .badge-blue { background: #1559d5; color: #fff; }
+  .badge-gray { background: #f2f4f3; color: #6b7280; }
+  .badge-outline-red { background: transparent; color: #C1321A; border: 1.5px solid #C1321A; }
+  .badge-outline-green { background: transparent; color: #357e51; border: 1.5px solid #357e51; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 50px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1.5px solid rgba(0,0,0,0.12); background: #fff; color: #333; transition: all 200ms; }
+  .chip-active { background: #C1321A; color: #fff; border-color: #C1321A; }
+  .chip-close::after { content: '×'; font-size: 14px; opacity: 0.7; }
+  .tag { display: inline-flex; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+  .tag-success { background: #e6f4ec; color: #357e51; }
+  .tag-error { background: #fde8e4; color: #C1321A; }
+  .tag-warning { background: #fef9e7; color: #c48c10; }
+  .tag-info { background: #e8eefb; color: #1559d5; }
+  .tag-neutral { background: #f2f4f3; color: #6b7280; }
+  .stars { display: flex; gap: 2px; color: #E8A920; font-size: 18px; }
+  .star-empty { color: #e2e8f0; }
+  .notification { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: #C1321A; color: #fff; font-size: 10px; font-weight: 800; }
+  .progress-bar { height: 6px; background: #f2f4f3; border-radius: 50px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 50px; background: #C1321A; }
+  .rating-row { display: flex; align-items: center; gap: 10px; }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="section-title">Status Badges</div>
+  <div class="row">
+    <span class="badge badge-red">Sale</span>
+    <span class="badge badge-gold">New Arrival</span>
+    <span class="badge badge-green">In Stock</span>
+    <span class="badge badge-blue">Featured</span>
+    <span class="badge badge-gray">Out of Stock</span>
+    <span class="badge badge-outline-red">Limited</span>
+    <span class="badge badge-outline-green">Pre-order</span>
+  </div>
+  <div class="section-title">Filter Chips</div>
+  <div class="row">
+    <div class="chip chip-active">All Fish</div>
+    <div class="chip">Flowerhorn</div>
+    <div class="chip">Cichlids</div>
+    <div class="chip">Goldfish</div>
+    <div class="chip chip-close">Under ₹2,000 </div>
+    <div class="chip chip-close">Adult </div>
+  </div>
+  <div class="section-title">Semantic Tags</div>
+  <div class="row">
+    <span class="tag tag-success">● In stock</span>
+    <span class="tag tag-error">● Sold out</span>
+    <span class="tag tag-warning">● Low stock</span>
+    <span class="tag tag-info">● Pre-order</span>
+    <span class="tag tag-neutral">● Coming soon</span>
+  </div>
+  <div class="section-title">Star Rating &amp; Reviews</div>
+  <div class="row">
+    <div class="stars">★★★★★</div>
+    <div style="font-size:14px;font-weight:700;color:#090909">4.9</div>
+    <div style="font-size:13px;color:#6b7280">(48 reviews)</div>
+    <div class="notification">3</div>
+    <div style="font-size:13px;color:#6b7280">cart items</div>
+  </div>
+  <div style="background:#fff;border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:6px">
+    <div class="rating-row">
+      <div style="width:28px;font-size:12px;font-weight:700;color:#090909">5★</div>
+      <div class="progress-bar" style="flex:1"><div class="progress-fill" style="width:80%"></div></div>
+      <div style="width:28px;font-size:12px;color:#6b7280;text-align:right">80%</div>
+    </div>
+    <div class="rating-row">
+      <div style="width:28px;font-size:12px;font-weight:700;color:#090909">4★</div>
+      <div class="progress-bar" style="flex:1"><div class="progress-fill" style="width:12%;background:#E8A920"></div></div>
+      <div style="width:28px;font-size:12px;color:#6b7280;text-align:right">12%</div>
+    </div>
+    <div class="rating-row">
+      <div style="width:28px;font-size:12px;font-weight:700;color:#090909">3★</div>
+      <div class="progress-bar" style="flex:1"><div class="progress-fill" style="width:5%;background:#E8A920"></div></div>
+      <div style="width:28px;font-size:12px;color:#6b7280;text-align:right">5%</div>
+    </div>
+    <div class="rating-row">
+      <div style="width:28px;font-size:12px;font-weight:700;color:#090909">1★</div>
+      <div class="progress-bar" style="flex:1"><div class="progress-fill" style="width:3%;background:#C1321A"></div></div>
+      <div style="width:28px;font-size:12px;color:#6b7280;text-align:right">3%</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

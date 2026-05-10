@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: #f2f4f3; padding: 20px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .section-title { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #9ca3af; grid-column: 1/-1; }
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .label { font-size: 13px; font-weight: 700; color: #090909; }
+  .hint { font-size: 12px; color: #6b7280; font-weight: 400; }
+  .input { width: 100%; border-radius: 6px; border: 1.5px solid rgba(0,0,0,0.15); background: #fff; padding: 10px 14px; font-family: 'DM Sans',sans-serif; font-size: 15px; font-weight: 500; color: #090909; outline: none; transition: border-color 300ms; }
+  .input::placeholder { color: #9ca3af; }
+  .input-focus { border-color: #1559d5; box-shadow: 0 0 0 3px rgba(21,89,213,0.15); }
+  .input-error { border-color: #C1321A; }
+  .input-success { border-color: #357e51; }
+  .input-disabled { background: #f2f4f3; color: #9ca3af; cursor: not-allowed; border-color: rgba(0,0,0,0.08); }
+  .error-msg { font-size: 12px; color: #C1321A; font-weight: 600; }
+  .success-msg { font-size: 12px; color: #357e51; font-weight: 600; }
+  .select { width: 100%; border-radius: 6px; border: 1.5px solid rgba(0,0,0,0.15); background: #fff; padding: 10px 14px; font-family: 'DM Sans',sans-serif; font-size: 15px; font-weight: 500; color: #090909; }
+  .search-wrap { position: relative; }
+  .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 16px; color: #6b7280; pointer-events: none; }
+  .input-search { padding-left: 38px; }
+  .checkbox-row { display: flex; gap: 8px; align-items: center; font-size: 14px; font-weight: 600; color: #090909; }
+  input[type=checkbox] { width: 16px; height: 16px; accent-color: #C1321A; cursor: pointer; }
+  .price-row { display: flex; gap: 8px; align-items: center; }
+  .price-prefix { background: #f2f4f3; border: 1.5px solid rgba(0,0,0,0.15); border-right: none; border-radius: 6px 0 0 6px; padding: 10px 12px; font-size: 15px; font-weight: 700; color: #333; }
+  .input-price { border-radius: 0 6px 6px 0; flex: 1; }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="section-title">Form Inputs — States</div>
+  <div class="field">
+    <label class="label">Fish name</label>
+    <input class="input" type="text" placeholder="e.g. Red Dragon Flowerhorn">
+    <span class="hint">Default state</span>
+  </div>
+  <div class="field">
+    <label class="label">Search fish</label>
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input class="input input-search" type="text" placeholder="Search by name or type…">
+    </div>
+    <span class="hint">With prefix icon</span>
+  </div>
+  <div class="field">
+    <label class="label">Email address</label>
+    <input class="input input-focus" type="email" value="buyer@email.com">
+    <span class="hint">Focus / active state</span>
+  </div>
+  <div class="field">
+    <label class="label">Phone number</label>
+    <input class="input input-success" type="tel" value="+91 98765 43210">
+    <span class="success-msg">✓ Number verified</span>
+  </div>
+  <div class="field">
+    <label class="label">Delivery pincode</label>
+    <input class="input input-error" type="text" value="00000">
+    <span class="error-msg">We don't deliver to this pincode yet.</span>
+  </div>
+  <div class="field">
+    <label class="label">Promo code</label>
+    <input class="input input-disabled" type="text" placeholder="Not available" disabled>
+    <span class="hint">Disabled state</span>
+  </div>
+  <div class="section-title">Select &amp; Other Controls</div>
+  <div class="field">
+    <label class="label">Fish category</label>
+    <select class="select">
+      <option>All categories</option>
+      <option>Flowerhorn</option>
+      <option>Cichlids</option>
+      <option>Goldfish</option>
+      <option>Accessories</option>
+    </select>
+  </div>
+  <div class="field">
+    <label class="label">Price (₹)</label>
+    <div class="price-row">
+      <span class="price-prefix">₹</span>
+      <input class="input input-price" type="number" placeholder="0">
+    </div>
+  </div>
+  <div class="field" style="grid-column:1/-1">
+    <label class="label">Notes / Message</label>
+    <textarea class="input" rows="3" placeholder="Any special requests for your order…" style="resize:vertical"></textarea>
+  </div>
+  <div style="grid-column:1/-1;display:flex;flex-direction:column;gap:8px">
+    <div class="checkbox-row"><input type="checkbox" checked> I want live fish delivery updates via WhatsApp</div>
+    <div class="checkbox-row"><input type="checkbox"> Sign up for new arrival alerts</div>
+    <div class="checkbox-row"><input type="checkbox" disabled> Newsletter (currently unavailable)</div>
+  </div>
+</div>
+</body>
+</html>

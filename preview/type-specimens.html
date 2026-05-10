@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: #f2f4f3; padding: 20px; }
+  .specimens { display: flex; flex-direction: column; gap: 10px; }
+  .card { background: #fff; border-radius: 6px; padding: 16px 20px; }
+  .meta { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #9ca3af; margin-bottom: 4px; }
+  .divider { border: none; border-top: 1px solid rgba(0,0,0,0.06); margin: 10px 0; }
+  h1.specimen { font-size: 56px; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: #090909; }
+  h2.specimen { font-size: 40px; font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; color: #090909; }
+  h3.specimen { font-size: 30px; font-weight: 700; line-height: 1.3; color: #090909; }
+  p.specimen { font-size: 18px; font-weight: 400; line-height: 1.65; color: #333333; }
+  .label-sm { font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #6b7280; }
+  .price { font-size: 28.8px; font-weight: 800; color: #C1321A; }
+</style>
+</head>
+<body>
+<div class="specimens">
+  <div class="card">
+    <div class="meta">H1 — Display / Hero — 56px ExtraBold</div>
+    <h1 class="specimen">Shop Live Flowerhorn Fish</h1>
+  </div>
+  <div class="card">
+    <div class="meta">H2 — Section Heading — 40px ExtraBold</div>
+    <h2 class="specimen">Featured Arrivals</h2>
+  </div>
+  <div class="card">
+    <div class="meta">H3 — Card / Sub-heading — 30px Bold</div>
+    <h3 class="specimen">Red Dragon Flowerhorn</h3>
+  </div>
+  <div class="card">
+    <div class="meta">Body — 18px Regular</div>
+    <p class="specimen">We specialise in premium flowerhorn fish, cichlids, and aquarium accessories. Every fish is hand-selected for health and vibrant colour.</p>
+  </div>
+  <div class="card" style="display:flex;gap:24px;align-items:center">
+    <div>
+      <div class="meta">Price Label — 28.8px ExtraBold</div>
+      <div class="price">₹3,500</div>
+    </div>
+    <div>
+      <div class="meta">Tag / Chip — 12px Bold Uppercase</div>
+      <div class="label-sm" style="color:#357e51">In Stock</div>
+    </div>
+    <div>
+      <div class="meta">Caption — 15px Regular</div>
+      <div style="font-size:15px;color:#6b7280;font-weight:400">5–6 inch adult male</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

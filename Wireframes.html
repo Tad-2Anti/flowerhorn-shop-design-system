@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FlowerHorn Shop — Website Wireframes</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Caveat',cursive;background:#e8e3db}
+  ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const BRAND='#8c2515', DARK='#1a1a1a', LG='#e0dbd4', WF="'Caveat',cursive";
+const HATCH="repeating-linear-gradient(45deg,#d0cbc4 0px,#d0cbc4 1px,#ede9e3 1px,#ede9e3 12px)";
+
+const GUPPIES=[
+  {name:"Female Guppies",price:29,old:50},{name:"Mixed Colour Male Guppy",price:39,old:50},
+  {name:"Half Black Guppy",price:99,old:199},{name:"Cobra Tail Guppy",price:105,old:149},
+  {name:"Platinum Red Guppy",price:119,old:199},{name:"Fancy Tail Guppy",price:129,old:200},
+  {name:"Yellow Gold Tuxedo Guppy",price:129,old:150},{name:"Big Ear Mosaic Thailand Guppies",price:null},
+  {name:"Tuxedo White Guppy",price:199,old:249},{name:"Golden Red Guppy",price:199,old:300},
+  {name:"Full Black Guppy",price:199,old:300},{name:"Koi Guppies",price:249,old:300},
+  {name:"Full Red Albino Guppy",price:249,old:400},
+];
+const CATS=[
+  {n:"Flowerhorn Fish",c:"12 varieties"},{n:"Cichlids",c:"25 species"},{n:"Guppy Collection",c:"14 varieties"},
+  {n:"Betta Collection",c:"10 varieties"},{n:"Tetras & Rasboras",c:"14 species"},
+  {n:"Mollys & Platies",c:"10 varieties"},{n:"Goldfish & Koi",c:"8 species"},
+  {n:"Aquarium Tanks",c:"20 products"},{n:"Accessories & Decor",c:"56 products"},{n:"Plants & Food",c:"31 products"},
+];
+const BEST=[
+  {name:"Full Red Albino Guppy",price:249,old:400,badge:"Sale"},
+  {name:"Elephant Ear Betta Adult",price:210,old:300,badge:"Sale"},
+  {name:"Convict Cichlid",price:199,old:249,badge:"Sale"},
+  {name:"Koi Guppies",price:249,old:300,badge:"Bestseller"},
+];
+
+/* ── PRIMITIVES ── */
+function Img({h=120,label="Image",style={}}){
+  return <div style={{height:h,background:HATCH,border:"1.5px solid #b8b3ac",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:WF,fontSize:13,color:"#999",textAlign:"center",padding:8,flexShrink:0,...style}}>{label}</div>;
+}
+function Btn({children,primary,ghost,white,small,style={}}){
+  const base={display:"inline-flex",alignItems:"center",justifyContent:"center",padding:small?"5px 10px":"8px 16px",borderRadius:4,fontFamily:WF,fontSize:small?12:14,fontWeight:600,cursor:"default",whiteSpace:"nowrap"};
+  if(primary) return <div style={{...base,background:BRAND,color:"#fff",border:`2px solid ${BRAND}`,...style}}>{children}</div>;
+  if(white)   return <div style={{...base,background:"transparent",color:"#fff",border:"2px solid rgba(255,255,255,0.55)",...style}}>{children}</div>;
+  if(ghost)   return <div style={{...base,background:"transparent",color:BRAND,border:`2px solid ${BRAND}`,...style}}>{children}</div>;
+  return <div style={{...base,background:"transparent",color:"#555",border:"2px solid #bbb",...style}}>{children}</div>;
+}
+function Note({children,style={}}){
+  return <div style={{fontFamily:WF,fontSize:11,color:"#999",fontStyle:"italic",borderLeft:"2px solid #ccc",paddingLeft:6,marginTop:4,lineHeight:1.45,...style}}>{children}</div>;
+}
+function Bdg({children,sale,sold,style={}}){
+  const bg=sold?"#bbb":sale?BRAND:"#555", c=sold?"#555":"#fff";
+  return <span style={{display:"inline-flex",padding:"1px 7px",borderRadius:20,background:bg,color:c,fontFamily:WF,fontSize:11,fontWeight:700,...style}}>{children}</span>;
+}
+function SL({children}){
+  return <div style={{position:"absolute",top:0,right:0,background:"rgba(255,255,255,0.9)",border:"1px dashed #ccc",padding:"2px 8px",fontSize:11,fontFamily:WF,color:"#aaa",fontStyle:"italic",zIndex:10,borderRadius:"0 0 0 4px"}}>{children}</div>;
+}
+function Sec({label,bg="#fff",style={},children}){
+  return <div style={{position:"relative",background:bg,borderBottom:"1px solid #d4cec8",...style}}>{label&&<SL>{label}</SL>}{children}</div>;
+}
+function Row({children,gap=8,align="center",wrap,justify,style={}}){
+  return <div style={{display:"flex",gap,alignItems:align,flexWrap:wrap?"wrap":"nowrap",justifyContent:justify||"flex-start",...style}}>{children}</div>;
+}
+
+/* ── PRODUCT CARD ── */
+function WfCard({name,price,old,badge,sold}){
+  return(
+    <div style={{background:"#fff",border:`1.5px solid ${LG}`,borderRadius:4,overflow:"hidden",flex:1,minWidth:0}}>
+      <div style={{position:"relative"}}>
+        <Img h={110} label="Fish photo" style={{border:"none"}}/>
+        {badge&&<Bdg sale style={{position:"absolute",top:8,left:8}}>{badge}</Bdg>}
+        {sold&&<Bdg sold style={{position:"absolute",top:8,right:8}}>Sold Out</Bdg>}
+      </div>
+      <div style={{padding:"8px 10px"}}>
+        <div style={{fontFamily:WF,fontSize:13,fontWeight:700,color:"#222",marginBottom:2,lineHeight:1.3}}>{name}</div>
+        {sold?(
+          <div style={{border:"1.5px dashed #ccc",borderRadius:4,padding:"5px 0",textAlign:"center",fontFamily:WF,fontSize:11,color:"#aaa",marginTop:6}}>Notify me when available</div>
+        ):(
+          <>
+            <Row gap={6} style={{marginBottom:6}}>
+              <span style={{fontFamily:WF,fontSize:15,fontWeight:700,color:"#222"}}>₹{price}</span>
+              {old&&<span style={{fontFamily:WF,fontSize:12,color:"#aaa",textDecoration:"line-through"}}>₹{old}</span>}
+            </Row>
+            <Btn primary style={{width:"100%",justifyContent:"center",padding:"6px 0",fontSize:12}}>Add to cart</Btn>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ── SHARED SECTIONS ── */
+function AnnoBar(){
+  return(
+    <Sec label="Anno bar · 36px · auto-rotate 5s · dismissible · stores pref in localStorage" bg={DARK}>
+      <div style={{height:36,display:"flex",alignItems:"center",justifyContent:"center",gap:16}}>
+        <span style={{fontFamily:WF,fontSize:14,color:"#e8e0d0"}}>‹&nbsp; Free delivery across South India on orders above ₹999 · Live fish packed with oxygen &nbsp;›</span>
+        <span style={{fontFamily:WF,fontSize:12,color:"#666",marginLeft:12}}>✕</span>
+      </div>
+    </Sec>
+  );
+}
+function Nav({dark}={}){
+  const bg=dark?"#0a0f0d":"#fff", tc=dark?"rgba(250,244,216,0.75)":"#333";
+  return(
+    <Sec label="Sticky nav · 64px · Logo | Nav links | Search · Wishlist · Account · Cart(badge) · hover 'Live Fish' → mega menu" bg={bg} style={{borderBottom:`1px solid ${dark?"rgba(255,255,255,0.08)":"#e8e8e8"}`}}>
+      <div style={{maxWidth:1200,margin:"0 auto",padding:"0 48px",height:64,display:"flex",alignItems:"center",gap:24}}>
+        <Row gap={8} style={{flexShrink:0}}>
+          <div style={{width:32,height:32,background:BRAND,borderRadius:4,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontFamily:WF,fontSize:18,fontWeight:700}}>F</div>
+          <div style={{fontFamily:WF,fontSize:15,fontWeight:700,color:dark?"#faf4d8":"#090909"}}>FlowerHorn Shop</div>
+        </Row>
+        <div style={{flex:1,display:"flex",gap:2,justifyContent:"center"}}>
+          {[["Live Fish ▾",true],["Tanks ▾",false],["Equipment ▾",false],["Accessories",false],["About",false]].map(([l,active])=>(
+            <div key={l} style={{padding:"6px 14px",fontFamily:WF,fontSize:14,fontWeight:600,color:active?BRAND:tc,borderBottom:active?`2px solid ${BRAND}`:"2px solid transparent"}}>{l}</div>
+          ))}
+        </div>
+        <Row gap={6}>
+          {["⌕ Search","♡ Wishlist","👤 Account","🛒 Cart (2)"].map((icon,i)=>(
+            <div key={i} style={{padding:"5px 10px",borderRadius:4,border:`1.5px dashed ${i===3?BRAND:"#ccc"}`,color:dark?"#faf4d8":i===3?"#fff":"#555",background:i===3?BRAND:"transparent",fontFamily:WF,fontSize:12}}>{icon}</div>
+          ))}
+        </Row>
+      </div>
+      <Note style={{margin:"0 48px 6px",fontSize:11}}>Hover "Live Fish" → full-width mega-menu (10 category cols + featured image). Mobile: hamburger → left-side drawer (320px) with accordion sub-items.</Note>
+    </Sec>
+  );
+}
+function Trust(){
+  return(
+    <Sec label="Trust strip · 72px · 4 icons · separated by 1px dividers · mobile: 2×2 grid" bg="#f0ebe3">
+      <div style={{maxWidth:1200,margin:"0 auto",padding:"0 48px",height:72,display:"flex",alignItems:"center",justifyContent:"space-around"}}>
+        {[["🐟","Live delivery · Mon–Sat"],["🛡","Oxygen-packed · Safe transit"],["⭐","100+ species available"],["📍","Madurai store + online"]].map(([icon,text])=>(
+          <Row key={text} gap={8}><span style={{fontSize:18,color:BRAND}}>{icon}</span><span style={{fontFamily:WF,fontSize:14,color:"#555"}}>{text}</span></Row>
+        ))}
+      </div>
+    </Sec>
+  );
+}
+function Footer(){
+  return(
+    <Sec label="Footer · 4 cols · dark bg · crimson top border · mobile: accordion stacks · payment icons" bg="#111" style={{borderTop:`2px solid ${BRAND}`}}>
+      <div style={{maxWidth:1200,margin:"0 auto",padding:"36px 48px 18px"}}>
+        <div style={{display:"grid",gridTemplateColumns:"2fr 1fr 1fr 1.5fr",gap:28,marginBottom:18}}>
+          <div>
+            <Row gap={8} style={{marginBottom:10}}><div style={{width:26,height:26,background:BRAND,borderRadius:3}}/>
+              <div style={{fontFamily:WF,fontSize:14,fontWeight:700,color:"#e8e0d0"}}>FlowerHorn Shop</div></Row>
+            {[1,2].map(i=><div key={i} style={{height:7,background:"rgba(255,255,255,0.1)",borderRadius:2,marginBottom:5}}/>)}
+            <div style={{height:7,width:"55%",background:"rgba(255,255,255,0.1)",borderRadius:2,marginBottom:12}}/>
+            <Row gap={5}>{["IG","FB","WA","YT"].map(s=><div key={s} style={{width:24,height:24,borderRadius:4,background:"rgba(255,255,255,0.1)",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:WF,fontSize:10,color:"#777"}}>{s}</div>)}</Row>
+          </div>
+          {[["Shop",["Guppy Collection","Betta Collection","Cichlids","Accessories","View all →"]],["Help",["Track order","Shipping policy","Returns","Care guides","Contact"]]].map(([h,links])=>(
+            <div key={h}><div style={{fontFamily:WF,fontSize:10,fontWeight:700,color:"rgba(255,255,255,0.3)",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10}}>{h}</div>
+              {links.map(l=><div key={l} style={{fontFamily:WF,fontSize:12,color:"rgba(255,255,255,0.5)",marginBottom:5}}>{l}</div>)}</div>
+          ))}
+          <div><div style={{fontFamily:WF,fontSize:10,fontWeight:700,color:"rgba(255,255,255,0.3)",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:10}}>Get in Touch</div>
+            {[["📞","+91 XXXXX XXXXX"],["💬","WhatsApp us"],["✉","hello@flowerhorn.in"],["📍","#80 Kannimandai Main Rd, Madurai-625 014"],["🕐","Mon–Sun · 9 AM – 9 PM"]].map(([icon,text])=>(
+              <Row key={text} gap={5} align="flex-start" style={{marginBottom:5}}><span style={{fontSize:13}}>{icon}</span><span style={{fontFamily:WF,fontSize:11,color:"rgba(255,255,255,0.5)",lineHeight:1.4}}>{text}</span></Row>
+            ))}</div>
+        </div>
+        <div style={{borderTop:"1px solid rgba(255,255,255,0.07)",paddingTop:10,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+          <span style={{fontFamily:WF,fontSize:11,color:"rgba(255,255,255,0.22)"}}>© 2026 FlowerHorn Shop, Madurai. All rights reserved.</span>
+          <Row gap={5}>{["UPI","Razorpay","COD","Visa"].map(p=><span key={p} style={{fontFamily:WF,fontSize:10,color:"rgba(255,255,255,0.3)",border:"1px solid rgba(255,255,255,0.1)",padding:"1px 5px",borderRadius:3}}>{p}</span>)}</Row>
+        </div>
+      </div>
+    </Sec>
+  );
+}
+
+/* ── HOME V1 — Classic ── */
+function HomeA(){
+  return(
+    <div>
+      <AnnoBar/><Nav/>
+      <Sec label="Hero · 560px · full-bleed image + 35% dark overlay (bottom 2/3) · left-aligned text · 2 CTAs · floating trust pill">
+        <div style={{position:"relative",height:560}}>
+          <Img h={560} label="Hero — stunning planted tank or underwater aquarium — high quality photo" style={{position:"absolute",inset:0,height:"100%",border:"none"}}/>
+          <div style={{position:"absolute",inset:0,background:"linear-gradient(to right,rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.2) 70%)"}}/>
+          <div style={{position:"absolute",top:24,right:48,background:"#fff",borderRadius:50,padding:"5px 14px",display:"flex",gap:6,alignItems:"center"}}>
+            <span style={{fontFamily:WF,fontSize:13,color:"#333"}}>🚚 Ships Mon–Sat</span>
+          </div>
+          <div style={{position:"absolute",bottom:64,left:64,maxWidth:520}}>
+            <div style={{fontFamily:WF,fontSize:11,color:"#faf4d8",letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:12,opacity:0.75}}>MADURAI'S #1 AQUARIUM FISH STORE</div>
+            <div style={{fontFamily:WF,fontSize:46,fontWeight:700,color:"#faf4d8",lineHeight:1.1,marginBottom:14}}>Exotic Fish.<br/>Thriving Tanks.<br/>Delivered Safe.</div>
+            <div style={{fontFamily:WF,fontSize:17,color:"rgba(250,244,216,0.8)",marginBottom:28,lineHeight:1.5}}>100+ species. Ships across South India. Packed with oxygen.</div>
+            <Row gap={16}><Btn primary style={{fontSize:16,padding:"12px 28px"}}>Shop Live Fish</Btn><Btn white style={{fontSize:16,padding:"12px 28px"}}>Explore Tanks</Btn></Row>
+          </div>
+        </div>
+        <Note style={{margin:"5px 48px"}}>Image TBD — high-quality fish/tank photography required. Text overlay at 35% opacity on bottom 2/3 only. CTA min 44px touch target.</Note>
+      </Sec>
+      <Trust/>
+      <Sec label="Shop by Fish Type · 5×2 grid · PRIMARY section — above fold on desktop · hover: scale(1.02) + crimson border · mobile: 2-col">
+        <div style={{maxWidth:1200,margin:"0 auto",padding:"48px 48px"}}>
+          <div style={{textAlign:"center",marginBottom:28}}>
+            <div style={{fontFamily:WF,fontSize:28,fontWeight:700,color:"#090909",marginBottom:6}}>Shop Live Fish by Type</div>
+            <div style={{fontFamily:WF,fontSize:15,color:"#888"}}>10 collections · 100+ species · ships across South India</div>
+          </div>
+          {[CATS.slice(0,5),CATS.slice(5,10)].map((row,ri)=>(
+            <div key={ri} style={{display:"grid",gridTemplateColumns:"repeat(5,1fr)",gap:12,marginBottom:12}}>
+              {row.map(cat=>(
+                <div key={cat.n} style={{border:`1.5px solid ${LG}`,borderRadius:6,overflow:"hidden"}}>
+                  <Img h={95} label={cat.n} style={{border:"none"}}/>
+                  <div style={{padding:"8px 10px",background:"#fff"}}>
+                    <div style={{fontFamily:WF,fontSize:13,fontWeight:700,color:"#222"}}>{cat.n}</div>
+                    <div style={{fontFamily:WF,fontSize:11,color:"#888"}}>{cat.c}</div>
+                    <div style={{fontFamily:WF,fontSize:12,fontWeight:700,color:"#333",marginTop:2}}>From ₹29</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ))}
+          <div style={{textAlign:"center",marginTop:16}}><span style={{fontFamily:WF,fontSize:14,color:BRAND,textDecoration:"underline",cursor:"default"}}>View all Live Fish →</span></div>
+          <Note>Open Q1: "Flowerhorn Fish" has 5 sub-varieties. Rec: Option B — click goes to product grid with filter chips pre-applied (fewer taps than sub-category page).</Note>
+        </div>
+      </Sec>
+      <Sec label="Bestsellers · 4-col product grid · horizontal scroll mobile · data from Shopify 'Bestseller' tag" bg="#f0ebe3">
+        <div style={{maxWidth:1200,margin:"0 auto",padding:"48px 48px"}}>
+          <div style={{fontFamily:WF,fontSize:26,fontWeight:700,color:"#090909",marginBottom:22}}>Most Popular Fish This Week</div>
+          <Row gap={14} align="stretch">{BEST.map(p=><WfCard key={p.name} {...p}/>)}</Row>
+          <div style={{textAlign:"center",marginTop:22}}><Btn style={{padding:"10px 32px",fontSize:14}}>See all products →</Btn></div>
+          <Note>Open Q2: Quick "Add to cart" on grid card (shown here) OR always route to PDP first? Recommend grid-level add-to-cart for low-consideration items (guppies, tetras). Flag for client.</Note>
+        </div>
+      </Sec>
+      <Sec label="Editorial insert · 320px · 50/50 split · aquascaping services upsell · mobile: stacked">
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",height:320}}>
+          <Img h={320} label="Planted aquascape / beautiful tank setup photo" style={{border:"none"}}/>
+          <div style={{padding:"48px 40px",display:"flex",flexDirection:"column",justifyContent:"center",gap:14}}>
+            <div style={{fontFamily:WF,fontSize:11,letterSpacing:"0.1em",textTransform:"uppercase",color:"#888"}}>Aquascaping Services</div>
+            <div style={{fontFamily:WF,fontSize:28,fontWeight:700,color:"#090909"}}>We Build Dream Tanks</div>
+            <div style={{fontFamily:WF,fontSize:15,color:"#666",lineHeight:1.6}}>Custom planted tanks, aquascape setups, and full installations across Madurai.</div>
+            <Btn style={{alignSelf:"flex-start"}}>Learn more</Btn>
+          </div>
+        </div>
+      </Sec>
+      <Sec label="Reviews · 3 cards · star rating · 4.8/5 summary · location tags · mobile: horizontal scroll">
+        <div style={{maxWidth:1200,margin:"0 auto",padding:"48px 48px"}}>
+          <div style={{textAlign:"center",marginBottom:22}}>
+            <div style={{fontFamily:WF,fontSize:26,fontWeight:700,color:"#090909"}}>What Our Customers Say</div>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:14,marginBottom:20}}>
+            {[["Chennai","Ordered parrot fishes — arrived active, packed safely. Highly recommend!","Live fish"],["Coimbatore","Plants arrived healthy and vibrant. Website easy to navigate.","Aquatic plants"],["Salem","Guided me perfectly over phone. Top-notch service.","Guppy Collection"]].map(([city,r,purchase])=>(
+              <div key={city} style={{background:"#f8f4ee",border:`1.5px solid ${LG}`,borderRadius:6,padding:"14px 16px"}}>
+                <div style={{color:BRAND,marginBottom:6,fontSize:16}}>★★★★★</div>
+                <div style={{fontFamily:WF,fontSize:13,color:"#444",fontStyle:"italic",lineHeight:1.6,marginBottom:8}}>"{r}"</div>
+                <div style={{fontFamily:WF,fontSize:13,fontWeight:700,color:"#222"}}>— {city} Customer</div>
+                <div style={{fontFamily:WF,fontSize:11,color:"#888"}}>Purchased: {purchase}</div>
+              </div>
+            ))}
+          </div>
+          <Row justify="center" gap={12}>
+            <span style={{fontFamily:WF,fontSize:34,fontWeight:700,color:BRAND}}>4.8</span>
+            <span style={{fontFamily:WF,fontSize:14,color:"#888"}}>/5 · Based on 200+ verified orders · Google + Shopify</span>
+          </Row>
+        </div>
+      </Sec>
+      <Sec label="Instagram feed · 6 square images · @flowerhorn_shop_madurai · hover: dark overlay + link icon · mobile: 4 + '+N more'">
+        <div style={{textAlign:"center",padding:"18px 0 8px",fontFamily:WF,fontSize:17,color:BRAND}}>@flowerhorn_shop_madurai</div>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(6,1fr)"}}>
+          {[...Array(6)].map((_,i)=><Img key={i} h={120} label={i===5?"+28 more":"IG post"} style={{border:"none",borderRight:i<5?"1px solid #fff":"none"}}/>)}
+        </div>
+        <Note style={{margin:"5px 48px"}}>Open Q5: Live via Instagram API (requires token + caching) OR manual image upload (simpler, no API). Recommend manual for launch, API in Phase 2.</Note>
+      </Sec>
+      <Footer/>
+    </div>
+  );
+}
+
+/* ── HOME V2 — Editorial / Dark ── */
+function HomeB(){
+  return(
+    <div>
+      <AnnoBar/><Nav dark/>
+      <Sec label="Hero V2 · Split layout · text left · hero fish photo right · stat row · dark bg" bg="#0a0f0d">
+        <div style={{maxWidth:1200,margin:"0 auto",padding:"80px 48px",display:"grid",gridTemplateColumns:"1fr 1fr",gap:48,alignItems:"center",minHeight:480}}>
+          <div>
+            <div style={{fontFamily:WF,fontSize:11,letterSpacing:"0.12em",textTransform:"uppercase",color:"rgba(250,244,216,0.4)",marginBottom:18}}>Est. 2012 · Madurai, Tamil Nadu</div>
+            <div style={{fontFamily:WF,fontSize:52,fontWeight:700,color:"#faf4d8",lineHeight:1.1,marginBottom:20}}>Premium<br/>Flowerhorn<br/>Fish.</div>
+            <div style={{fontFamily:WF,fontSize:17,color:"rgba(250,244,216,0.55)",marginBottom:30,lineHeight:1.6}}>Hand-selected. Oxygen-packed. Delivered safe across South India.</div>
+            <Row gap={12}><Btn primary style={{fontSize:16,padding:"12px 28px"}}>Shop Now →</Btn><Btn white style={{fontSize:16,padding:"12px 28px"}}>Our Story</Btn></Row>
+            <div style={{display:"flex",gap:32,marginTop:30}}>
+              {[["100+","Species"],["500+","Happy orders"],["4.8★","Customer rating"]].map(([v,l])=>(
+                <div key={l}><div style={{fontFamily:WF,fontSize:22,fontWeight:700,color:"#faf4d8"}}>{v}</div>
+                  <div style={{fontFamily:WF,fontSize:12,color:"rgba(250,244,216,0.3)"}}>{l}</div></div>
+              ))}
+            </div>
+          </div>
+          <div style={{position:"relative"}}>
+            <Img h={380} label="Hero fish — premium flowerhorn close-up photo" style={{borderRadius:8,border:"1px solid rgba(255,255,255,0.08)"}}/>
+            <div style={{position:"absolute",bottom:14,left:14,background:"rgba(0,0,0,0.75)",borderRadius:6,padding:"8px 14px",fontFamily:WF}}>
+              <div style={{fontSize:14,color:"#faf4d8",fontWeight:700}}>Red Dragon Flowerhorn</div>
+              <div style={{fontSize:13,color:"#888"}}>₹3,500 · In stock · 5–6 inch</div>
+            </div>
+          </div>
+        </div>
+        <Note style={{margin:"0 48px 10px",color:"#555"}}>Dark variant — pairs best with a vivid close-up fish photo. Caption overlay links directly to product page.</Note>
+      </Sec>
+      <Sec label="Category nav V2 · Horizontal pill scroll · all 10 categories · sticky on scroll · mobile: same (scrollable)">
+        <div style={{background:"#111",padding:"16px 48px",overflowX:"auto"}}>
+          <Row gap={8} style={{minWidth:"max-content"}}>
+            {["All Fish",...CATS.slice(0,7).map(c=>c.n)].map((c,i)=>(
+              <div key={c} style={{padding:"6px 14px",borderRadius:50,whiteSpace:"nowrap",background:i===0?BRAND:"rgba(255,255,255,0.06)",color:i===0?"#fff":"rgba(250,244,216,0.6)",border:i===0?`1px solid ${BRAND}`:"1px solid rgba(255,255,255,0.1)",fontFamily:WF,fontSize:13,fontWeight:600}}>{c}</div>
+            ))}
+          </Row>
+        </div>
+      </Sec>
+      <Sec label="Featured V2 · Full-width 4-col · section label + see all · real product names and prices">
+        <div style={{maxWidth:1200,margin:"0 auto",padding:"52px 48px"}}>
+          <Row justify="space-between" align="flex-end" style={{marginBottom:26}}>
+            <div><div style={{fontFamily:WF,fontSize:11,letterSpacing:"0.1em",textTransform:"uppercase",color:"#aaa",marginBottom:4}}>Featured This Week</div>
+              <div style={{fontFamily:WF,fontSize:30,fontWeight:700,color:"#090909"}}>Shop Live Fish</div></div>
+            <span style={{fontFamily:WF,fontSize:14,color:BRAND,textDecoration:"underline",cursor:"default"}}>View all →</span>
+          </Row>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:14}}>
+            {BEST.map(p=><WfCard key={p.name} {...p}/>)}
+          </div>
+        </div>
+      </Sec>
+      <Sec label="Social proof V2 · Compact stats bar + 2 review cards" bg="#f0ebe3">
+        <div style={{maxWidth:1200,margin:"0 auto",padding:"36px 48px"}}>
+          <Row gap={0} style={{background:"#fff",borderRadius:8,marginBottom:18,overflow:"hidden",border:`1px solid ${LG}`}}>
+            {[["4.8 / 5","200+ verified orders"],[" 100+","Species available"],["Mon–Sat","Live delivery"]].map(([v,l],i)=>(
+              <div key={l} style={{flex:1,padding:"16px 22px",borderRight:i<2?`1px solid ${LG}`:"none",textAlign:"center"}}>
+                <div style={{fontFamily:WF,fontSize:24,fontWeight:700,color:BRAND}}>{v}</div>
+                <div style={{fontFamily:WF,fontSize:12,color:"#888"}}>{l}</div>
+              </div>
+            ))}
+          </Row>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+            {[["Chennai","Ordered flowerhorn — arrived active, packed safely. Highly recommend!"],["Coimbatore","Plants arrived healthy and vibrant. Excellent experience."]].map(([city,r])=>(
+              <div key={city} style={{background:"#fff",borderRadius:6,padding:"13px 15px",border:`1.5px solid ${LG}`}}>
+                <div style={{color:BRAND,marginBottom:4,fontSize:15}}>★★★★★</div>
+                <div style={{fontFamily:WF,fontSize:13,color:"#444",fontStyle:"italic"}}>" {r} "</div>
+                <div style={{fontFamily:WF,fontSize:13,fontWeight:700,color:"#222",marginTop:6}}>— {city}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Sec>
+      <Footer/>
+    </div>
+  );
+}
+
+/* ── CATEGORY INDEX ── */
+function CatIndex(){
+  return(
+    <div>
+      <AnnoBar/><Nav/>
+      <Sec label="Category hero · 180px · full-bleed image + 55% overlay · breadcrumb + H1 + sub-copy">
+        <div style={{position:"relative",height:180}}>
+          <Img h={180} label="Wide aquarium / school of fish photo" style={{position:"absolute",inset:0,height:"100%",border:"none"}}/>
+          <div style={{position:"absolute",inset:0,background:"rgba(0,0,0,0.55)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:8}}>
+            <div style={{fontFamily:WF,fontSize:13,color:"rgba(250,244,216,0.65)"}}>Home / Live Fish</div>
+            <div style={{fontFamily:WF,fontSize:42,fontWeight:700,color:"#faf4d8"}}>Live Fish</div>
+            <div style={{fontFamily:WF,fontSize:14,color:"rgba(250,244,216,0.75)"}}>10 collections · 100+ species · delivered alive across South India</div>
+          </div>
+        </div>
+      </Sec>
+      <Sec label="10 category cards · 5×2 grid · real data · hover: scale(1.02) + crimson border · mobile: 2-col · price range shown">
+        <div style={{maxWidth:1200,margin:"0 auto",padding:"44px 48px"}}>
+          <Row justify="space-between" align="baseline" style={{marginBottom:18}}>
+            <div><div style={{fontFamily:WF,fontSize:26,fontWeight:700,color:"#090909"}}>Browse by Fish Type</div>
+              <div style={{fontFamily:WF,fontSize:13,color:"#888"}}>10 collections</div></div>
+          </Row>
+          {[CATS.slice(0,5),CATS.slice(5,10)].map((row,ri)=>(
+            <div key={ri} style={{display:"grid",gridTemplateColumns:"repeat(5,1fr)",gap:13,marginBottom:13}}>
+              {row.map(cat=>(
+                <div key={cat.n} style={{border:`1.5px solid ${LG}`,borderRadius:6,overflow:"hidden"}}>
+                  <Img h={105} label={cat.n} style={{border:"none"}}/>
+                  <div style={{padding:"8px 10px",background:"#fff"}}>
+                    <div style={{fontFamily:WF,fontSize:13,fontWeight:700,color:"#222",marginBottom:2}}>{cat.n}</div>
+                    <div style={{fontFamily:WF,fontSize:11,color:"#888",marginBottom:2}}>{cat.c}</div>
+                    <div style={{fontFamily:WF,fontSize:12,fontWeight:700,color:"#333"}}>From ₹29</div>
+                    {cat.n==="Flowerhorn Fish"&&(
+                      <Row gap={4} style={{marginTop:5,flexWrap:"wrap"}}>
+                        {["SRD","Kamfa","Zhen Zhu","Golden"].map(chip=>(
+                          <span key={chip} style={{fontFamily:WF,fontSize:10,border:`1px solid ${LG}`,borderRadius:20,padding:"0px 5px",color:"#666"}}>{chip}</span>
+                        ))}
+                      </Row>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ))}
+          <Note>Open Q1: "Flowerhorn Fish" has 5 sub-varieties (shown as tappable chips). Rec: Option B — click card → product grid with that chip pre-filtered (fewer taps). Option A = extra sub-page. Option C = hover expansion.</Note>
+        </div>
+      </Sec>
+      <Sec label="New Arrivals · horizontal scroll row · 5 cards visible · arrow nav on desktop · real guppy product names" bg="#f0ebe3">
+        <div style={{maxWidth:1200,margin:"0 auto",padding:"36px 48px"}}>
+          <Row justify="space-between" style={{marginBottom:16}}>
+            <div><div style={{fontFamily:WF,fontSize:22,fontWeight:700,color:"#090909"}}>New Arrivals This Week</div>
+              <div style={{fontFamily:WF,fontSize:12,color:"#888"}}>Added in the last 7 days</div></div>
+            <Row gap={6}><Btn style={{width:34,height:34,padding:0,fontSize:16}}>‹</Btn><Btn style={{width:34,height:34,padding:0,fontSize:16}}>›</Btn></Row>
+          </Row>
+          <Row gap={12} align="stretch">
+            {GUPPIES.slice(0,5).map(p=><WfCard key={p.name} name={p.name} price={p.price} old={p.old} sold={!p.price} badge={p.old?"Sale":undefined}/>)}
+          </Row>
+        </div>
+      </Sec>
+      <Sec label="Care guide CTA · 120px · beginner buyer conversion · links to blog / care guide page">
+        <div style={{maxWidth:1200,margin:"0 auto",padding:"0 48px",height:120,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+          <Row gap={16}><span style={{fontSize:30,color:BRAND}}>ℹ</span>
+            <div><div style={{fontFamily:WF,fontSize:17,fontWeight:700,color:"#090909"}}>New to fishkeeping?</div>
+              <div style={{fontFamily:WF,fontSize:13,color:"#666"}}>Read our beginner's guide to setting up your first aquarium</div></div></Row>
+          <Btn ghost>Read the guide →</Btn>
+        </div>
+      </Sec>
+      <Footer/>
+    </div>
+  );
+}
+
+/* ── PRODUCT GRID V1 — Sidebar ── */
+function GridA(){
+  return(
+    <div>
+      <AnnoBar/><Nav/>
+      <Sec label="Breadcrumb + H1 + description + product count · sort dropdown right-aligned">
+        <div style={{maxWidth:1200,margin:"0 auto",padding:"20px 48px"}}>
+          <div style={{fontFamily:WF,fontSize:13,color:"#888",marginBottom:6}}>Home &nbsp;› &nbsp;Live Fish &nbsp;› &nbsp;<strong style={{color:"#333"}}>Guppy Collection</strong></div>
+          <Row justify="space-between" align="flex-start">
+            <div>
+              <div style={{fontFamily:WF,fontSize:28,fontWeight:700,color:"#090909"}}>Guppy Collection</div>
+              <div style={{fontFamily:WF,fontSize:14,color:"#666",maxWidth:500,marginTop:4}}>Hardy, colourful, and beginner-friendly. One of the most popular freshwater fish worldwide.</div>
+              <div style={{fontFamily:WF,fontSize:12,color:"#888",marginTop:4}}>Showing 9 of 13 products</div>
+            </div>
+            <Row gap={8} style={{flexShrink:0,marginTop:8}}>
+              <span style={{fontFamily:WF,fontSize:13,color:"#666"}}>Sort by:</span>
+              <div style={{border:"1.5px solid #ccc",borderRadius:4,padding:"5px 12px",fontFamily:WF,fontSize:13,minWidth:140}}>Featured ▾</div>
+            </Row>
+          </Row>
+        </div>
+      </Sec>
+      <Sec bg="#fff" label="Active filter chips · shown when filter selected · × removes filter · 'Clear all' resets">
+        <div style={{maxWidth:1200,margin:"0 auto",padding:"6px 48px 8px"}}>
+          <Row gap={8}><span style={{fontFamily:WF,fontSize:12,color:"#888"}}>Filters:</span>
+            {["In stock ×","₹29–₹249 ×","Beginner-friendly ×"].map(chip=>(
+              <div key={chip} style={{border:"1.5px solid #ccc",borderRadius:20,padding:"2px 10px",fontFamily:WF,fontSize:11,color:"#555"}}>{chip}</div>
+            ))}
+            <span style={{fontFamily:WF,fontSize:12,color:BRAND,textDecoration:"underline"}}>Clear all</span>
+          </Row>
+        </div>
+      </Sec>
+      <Sec bg="#f0ebe3">
+        <div style={{maxWidth:1200,margin:"0 auto",padding:"20px 48px 36px",display:"grid",gridTemplateColumns:"240px 1fr",gap:22}}>
+          <div style={{background:"#fff",borderRadius:6,border:`1.5px solid ${LG}`,padding:16,height:"fit-content"}}>
+            <Row justify="space-between" style={{marginBottom:14}}>
+              <span style={{fontFamily:WF,fontSize:15,fontWeight:700,color:"#090909"}}>Filters</span>
+              <span style={{fontFamily:WF,fontSize:12,color:BRAND}}>Clear all</span>
+            </Row>
+            {[["Availability",[["In stock",12],["Pre-order",1],["Notify when avail.",0]]],["Price Range",null],["Fish Size",[["Nano (under 2in)",null],["Small (2–4in)",null],["Medium (4–6in)",null]]],["Care Level",[["Beginner-friendly",null],["Intermediate",null],["Expert",null]]]].map(([heading,items])=>(
+              <div key={heading} style={{marginBottom:18}}>
+                <div style={{fontFamily:WF,fontSize:10,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",color:"#aaa",marginBottom:7,paddingBottom:5,borderBottom:`1px solid ${LG}`}}>{heading}</div>
+                {items?items.map(([l,c])=>(
+                  <Row key={l} gap={7} style={{marginBottom:6}}>
+                    <div style={{width:13,height:13,border:"1.5px solid #bbb",borderRadius:2,flexShrink:0}}/>
+                    <span style={{fontFamily:WF,fontSize:13,color:"#333",flex:1}}>{l}</span>
+                    {c!==null&&<span style={{fontFamily:WF,fontSize:11,color:"#bbb"}}>{c}</span>}
+                  </Row>
+                )):(
+                  <div>
+                    <div style={{height:3,background:"#eee",borderRadius:2,margin:"8px 0 5px",position:"relative"}}>
+                      <div style={{position:"absolute",left:"5%",right:"15%",top:0,height:"100%",background:BRAND,borderRadius:2}}/>
+                    </div>
+                    <Row justify="space-between"><span style={{fontFamily:WF,fontSize:11,color:"#888"}}>₹29</span><span style={{fontFamily:WF,fontSize:11,color:"#888"}}>₹249</span></Row>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <div>
+            <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:13}}>
+              {GUPPIES.slice(0,9).map(p=><WfCard key={p.name} name={p.name} price={p.price} old={p.old} sold={!p.price} badge={p.old?"Sale":undefined}/>)}
+            </div>
+            <div style={{textAlign:"center",marginTop:24}}>
+              <div style={{fontFamily:WF,fontSize:12,color:"#888",marginBottom:8}}>Showing 9 of 13 products</div>
+              <Btn style={{padding:"10px 36px",fontSize:14}}>Load 4 more</Btn>
+            </div>
+            <Note style={{marginTop:8}}>Open Q3: Load More (recommended — keeps user in context) vs numbered pagination. Rec: Load More for mobile-first. Open Q4: Show care level (●○○ Beginner) on card? Adds value for newcomers — flag for client.</Note>
+          </div>
+        </div>
+      </Sec>
+      <Footer/>
+    </div>
+  );
+}
+
+/* ── PRODUCT GRID V2 — Top Filter Bar ── */
+function GridB(){
+  return(
+    <div>
+      <AnnoBar/><Nav/>
+      <Sec label="V2: Full-width · no sidebar · sticky filter chips at top · 4-col grid · more products visible">
+        <div style={{maxWidth:1200,margin:"0 auto",padding:"18px 48px 0"}}>
+          <div style={{fontFamily:WF,fontSize:12,color:"#888",marginBottom:5}}>Home › Live Fish › <strong style={{color:"#333"}}>Guppy Collection</strong></div>
+          <Row justify="space-between" style={{marginBottom:12}}>
+            <div style={{fontFamily:WF,fontSize:28,fontWeight:700,color:"#090909"}}>Guppy Collection</div>
+            <Row gap={8}><span style={{fontFamily:WF,fontSize:12,color:"#888"}}>13 products ·</span>
+              <div style={{border:"1.5px solid #ccc",borderRadius:4,padding:"5px 12px",fontFamily:WF,fontSize:13}}>Sort: Featured ▾</div></Row>
+          </Row>
+        </div>
+        <div style={{background:"#fff",borderTop:`1px solid ${LG}`,borderBottom:`1px solid ${LG}`,padding:"9px 0"}}>
+          <div style={{maxWidth:1200,margin:"0 auto",padding:"0 48px"}}>
+            <Row gap={7} wrap>
+              <span style={{fontFamily:WF,fontSize:12,color:"#888"}}>Filter:</span>
+              {["In stock only","Under ₹150","Beginner-friendly","Female only","+ More filters"].map((f,i)=>(
+                <div key={f} style={{padding:"4px 12px",borderRadius:50,fontFamily:WF,fontSize:12,border:`1.5px solid ${i<2?BRAND:"#ccc"}`,background:i<2?"rgba(140,37,21,0.07)":"#fff",color:i<2?BRAND:"#555"}}>{f}{i<2?" ×":""}</div>
+              ))}
+            </Row>
+          </div>
+        </div>
+        <Note style={{margin:"5px 48px"}}>Filter bar sticks below nav on scroll. Mobile: collapses to "Filter" + "Sort" pill buttons → opens bottom sheet drawer on tap.</Note>
+      </Sec>
+      <Sec bg="#f0ebe3">
+        <div style={{maxWidth:1200,margin:"0 auto",padding:"18px 48px 36px"}}>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:13}}>
+            {GUPPIES.slice(0,8).map(p=><WfCard key={p.name} name={p.name} price={p.price} old={p.old} sold={!p.price} badge={p.old?"Sale":undefined}/>)}
+          </div>
+          <div style={{textAlign:"center",marginTop:22}}>
+            <div style={{fontFamily:WF,fontSize:12,color:"#888",marginBottom:8}}>Showing 8 of 13 products</div>
+            <Btn style={{padding:"10px 36px",fontSize:14}}>Load 5 more</Btn>
+          </div>
+          <Note style={{marginTop:8}}>V2 advantage: 4 columns = more products above fold. No sidebar = cleaner mobile. Trade-off: filter discoverability is lower (chips only). Best for mobile-heavy audiences.</Note>
+        </div>
+      </Sec>
+      <Footer/>
+    </div>
+  );
+}
+
+/* ── PRODUCT DETAIL PAGE ── */
+function PDP(){
+  const p={name:"Full Red Albino Guppy",price:249,old:400,sci:"Poecilia reticulata"};
+  return(
+    <div>
+      <AnnoBar/><Nav/>
+      <Sec label="PDP · breadcrumb + 2-col layout · image gallery left · product info right · specs grid · tabs · related products">
+        <div style={{maxWidth:1200,margin:"0 auto",padding:"22px 48px"}}>
+          <div style={{fontFamily:WF,fontSize:12,color:"#888",marginBottom:18}}>Home › Live Fish › Guppy Collection › <strong style={{color:"#333"}}>{p.name}</strong></div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:38,background:"#fff",borderRadius:8,padding:28,border:`1.5px solid ${LG}`,marginBottom:20}}>
+            {/* Image panel */}
+            <div>
+              <div style={{border:`1.5px solid ${LG}`,borderRadius:8,overflow:"hidden",marginBottom:10}}>
+                <Img h={340} label="Main product image — fish on white/light background for clean presentation" style={{border:"none"}}/>
+              </div>
+              <Row gap={8}>
+                {[0,1,2].map(i=>(
+                  <div key={i} style={{border:`2px solid ${i===0?BRAND:LG}`,borderRadius:6,overflow:"hidden",width:68,height:68}}>
+                    <Img h={68} label="" style={{border:"none"}}/>
+                  </div>
+                ))}
+                <Note style={{marginLeft:8,fontSize:11}}>Thumbnail strip. Click → swap main image.</Note>
+              </Row>
+            </div>
+            {/* Info panel */}
+            <div style={{display:"flex",flexDirection:"column",gap:13}}>
+              <div><Bdg sale>Sale — 38% off</Bdg>
+                <div style={{fontFamily:WF,fontSize:28,fontWeight:700,color:"#090909",marginTop:8,lineHeight:1.2}}>{p.name}</div>
+                <div style={{fontFamily:WF,fontSize:13,color:"#888",fontStyle:"italic",marginTop:4}}>{p.sci}</div></div>
+              <Row gap={8}><span style={{color:BRAND,fontSize:17}}>★★★★★</span><span style={{fontFamily:WF,fontSize:14,fontWeight:700,color:"#222"}}>4.8</span><span style={{fontFamily:WF,fontSize:13,color:"#888"}}>(48 reviews)</span></Row>
+              <Row gap={12} align="baseline">
+                <div style={{fontFamily:WF,fontSize:30,fontWeight:700,color:"#090909"}}>₹{p.price}</div>
+                <div style={{fontFamily:WF,fontSize:17,color:"#bbb",textDecoration:"line-through"}}>₹{p.old}</div>
+              </Row>
+              <div style={{background:"#eaf2ed",borderRadius:6,padding:"5px 12px",display:"inline-flex",alignItems:"center",gap:6,fontFamily:WF,fontSize:13,fontWeight:700,color:"#3d6b4a",alignSelf:"flex-start"}}>✓ In stock — ready to ship</div>
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:7}}>
+                {[["Sold as","Single"],["Size","1.5–2 inch"],["Temperature","22–28°C"],["pH Range","7.0–8.0"],["Care Level","Beginner ●○○"],["Min. Tank","20L"]].map(([l,v])=>(
+                  <div key={l} style={{background:"#f5f0e8",borderRadius:6,padding:"7px 10px"}}>
+                    <div style={{fontFamily:WF,fontSize:10,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",color:"#aaa"}}>{l}</div>
+                    <div style={{fontFamily:WF,fontSize:13,fontWeight:700,color:"#090909"}}>{v}</div>
+                  </div>
+                ))}
+              </div>
+              <Row gap={10} align="center">
+                <span style={{fontFamily:WF,fontSize:14,fontWeight:700,color:"#090909"}}>Qty:</span>
+                <div style={{display:"flex",border:`1.5px solid ${LG}`,borderRadius:50,overflow:"hidden"}}>
+                  <div style={{width:34,height:34,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:WF,fontSize:18,color:"#555",borderRight:`1px solid ${LG}`}}>−</div>
+                  <div style={{width:38,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:WF,fontSize:15,fontWeight:700}}>1</div>
+                  <div style={{width:34,height:34,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:WF,fontSize:18,color:"#555",borderLeft:`1px solid ${LG}`}}>+</div>
+                </div>
+              </Row>
+              <Row gap={10}><Btn primary style={{flex:1,justifyContent:"center",padding:"12px 0",fontSize:15}}>Add to Cart</Btn>
+                <div style={{width:46,height:46,borderRadius:"50%",border:`1.5px solid ${LG}`,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:WF,fontSize:19}}>♡</div></Row>
+              <Row gap={20} style={{fontFamily:WF,fontSize:12,color:"#888"}}><span>📦 Free shipping over ₹999</span><span>🐟 Live arrival guaranteed</span></Row>
+            </div>
+          </div>
+          {/* Tabs */}
+          <div style={{background:"#fff",borderRadius:8,border:`1.5px solid ${LG}`,overflow:"hidden",marginBottom:20}}>
+            <div style={{display:"flex",borderBottom:`2px solid ${LG}`}}>
+              {["Overview","Care Guide","Shipping Info"].map((t,i)=>(
+                <div key={t} style={{padding:"10px 18px",fontFamily:WF,fontSize:14,fontWeight:700,borderBottom:i===0?`2px solid ${BRAND}`:"2px solid transparent",marginBottom:-2,color:i===0?BRAND:"#888"}}>{t}</div>
+              ))}
+            </div>
+            <div style={{padding:"14px 18px",fontFamily:WF,fontSize:14,color:"#444",lineHeight:1.7}}>
+              Full Red Albino Guppy is a vibrant, peaceful, beginner-friendly livebearing fish. Best kept in groups of 6+ in a planted aquarium with gentle filtration. Sold as single fish. Pair with a female for breeding. Avoid fin-nipping tankmates.
+            </div>
+          </div>
+          {/* Related */}
+          <div style={{fontFamily:WF,fontSize:18,fontWeight:700,color:"#090909",marginBottom:14}}>You might also like</div>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:13}}>
+            {GUPPIES.slice(9,13).map(p=><WfCard key={p.name} name={p.name} price={p.price} old={p.old} sold={!p.price} badge={p.old?"Sale":undefined}/>)}
+          </div>
+          <Note style={{marginTop:10}}>Open Q6: Wishlist (♡) shown here. Launch feature or Phase 2? Requires Shopify Wishlist app. Open Q7: Login/account — Shopify customer accounts or guest checkout only at launch?</Note>
+        </div>
+      </Sec>
+      <Footer/>
+    </div>
+  );
+}
+
+/* ── APP ── */
+const PAGES=[
+  {id:"home",label:"🏠 Home",variants:[{id:"a",label:"V1 — Classic E-commerce",C:HomeA},{id:"b",label:"V2 — Editorial / Dark",C:HomeB}]},
+  {id:"cats",label:"🐟 Category Index",variants:[{id:"a",label:"Category Index",C:CatIndex}]},
+  {id:"grid",label:"📋 Guppy Collection",variants:[{id:"a",label:"V1 — Sidebar Filters",C:GridA},{id:"b",label:"V2 — Top Filter Bar",C:GridB}]},
+  {id:"pdp",label:"🛒 Product Detail",variants:[{id:"a",label:"Full Red Albino Guppy PDP",C:PDP}]},
+];
+
+function App(){
+  const [ap,setAp]=React.useState("home");
+  const [av,setAv]=React.useState("a");
+  const page=PAGES.find(p=>p.id===ap);
+  const variant=page?.variants.find(v=>v.id===av)||page?.variants[0];
+  const C=variant?.C;
+  const sw=id=>{setAp(id);setAv("a");};
+  return(
+    <div style={{minHeight:"100vh",background:"#e8e3db"}}>
+      <div style={{position:"sticky",top:0,zIndex:999,background:"#fff",borderBottom:`1.5px solid ${LG}`,boxShadow:"0 2px 8px rgba(0,0,0,0.05)"}}>
+        <div style={{maxWidth:1200,margin:"0 auto",padding:"0 24px"}}>
+          <Row style={{height:50,justifyContent:"space-between",flexWrap:"wrap"}} gap={12}>
+            <Row gap={8}>
+              <div style={{width:22,height:22,background:BRAND,borderRadius:3,flexShrink:0}}/>
+              <span style={{fontFamily:WF,fontSize:16,fontWeight:700,color:"#090909"}}>FlowerHorn Shop</span>
+              <span style={{fontFamily:WF,fontSize:11,color:"#aaa",background:"#f0ebe3",padding:"1px 8px",borderRadius:20}}>Website Wireframes</span>
+            </Row>
+            <Row gap={3}>
+              {PAGES.map(p=>(
+                <button key={p.id} onClick={()=>sw(p.id)} style={{padding:"4px 11px",borderRadius:6,border:"none",cursor:"pointer",fontFamily:WF,fontSize:13,fontWeight:600,background:ap===p.id?BRAND:"transparent",color:ap===p.id?"#fff":"#777"}}>
+                  {p.label}
+                </button>
+              ))}
+            </Row>
+            {page&&page.variants.length>1&&(
+              <Row gap={5}>
+                {page.variants.map(v=>(
+                  <button key={v.id} onClick={()=>setAv(v.id)} style={{padding:"3px 10px",borderRadius:50,border:`1.5px solid ${av===v.id?BRAND:"#ccc"}`,cursor:"pointer",fontFamily:WF,fontSize:12,fontWeight:600,background:av===v.id?"rgba(140,37,21,0.08)":"#fff",color:av===v.id?BRAND:"#888"}}>
+                    {v.label}
+                  </button>
+                ))}
+              </Row>
+            )}
+          </Row>
+        </div>
+      </div>
+      <div style={{maxWidth:1200,margin:"14px auto 40px",background:"#fff",boxShadow:"0 0 0 1px rgba(0,0,0,0.07),0 4px 24px rgba(0,0,0,0.05)"}}>
+        {C&&<C/>}
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>

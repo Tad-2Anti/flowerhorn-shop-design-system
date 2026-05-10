@@ -1,0 +1,237 @@
+/* ============================================================
+   FlowerHorn Shop — Design Tokens
+   Source: Brand token spec + physical store identity
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
+
+/* ── Brand Palette ── */
+:root {
+  --color-brand-red:        #C1321A;
+  --color-brand-red-dark:   #9e2714;
+  --color-brand-red-light:  #e84a2a;
+  --color-brand-gold:       #E8A920;
+  --color-brand-gold-dark:  #c48c10;
+  --color-brand-gold-light: #f5c84a;
+
+  /* ── Semantic Text ── */
+  --color-text-primary:     #090909;
+  --color-text-secondary:   #333333;
+  --color-text-tertiary:    #1559d5;
+  --color-text-inverse:     #faf4d8;
+  --color-text-muted:       #6b7280;
+  --color-text-disabled:    #9ca3af;
+
+  /* ── Surfaces ── */
+  --color-surface-base:     #0a0f0d;
+  --color-surface-muted:    #f2f4f3;
+  --color-surface-raised:   #ffffff;
+  --color-surface-strong:   #357e51;
+  --color-surface-overlay:  rgba(0, 0, 0, 0.5);
+
+  /* ── Semantic Feedback ── */
+  --color-success:          #357e51;
+  --color-success-light:    #e6f4ec;
+  --color-error:            #C1321A;
+  --color-error-light:      #fde8e4;
+  --color-warning:          #E8A920;
+  --color-warning-light:    #fef9e7;
+  --color-info:             #1559d5;
+  --color-info-light:       #e8eefb;
+
+  /* ── Border ── */
+  --color-border:           rgba(0, 0, 0, 0.08);
+  --color-border-strong:    rgba(0, 0, 0, 0.2);
+  --color-focus-ring:       #1559d5;
+
+  /* ============================================================
+     Typography
+     ============================================================ */
+
+  /* Family */
+  --font-family-primary:    'DM Sans', sans-serif;
+  --font-family-stack:      'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Size scale */
+  --font-size-xs:           10px;
+  --font-size-sm:           15px;
+  --font-size-md:           16.56px;
+  --font-size-lg:           18px;    /* base */
+  --font-size-xl:           20px;
+  --font-size-2xl:          28.8px;
+  --font-size-3xl:          30px;
+  --font-size-4xl:          40px;
+  --font-size-5xl:          56px;
+
+  /* Weight */
+  --font-weight-regular:    400;
+  --font-weight-medium:     500;
+  --font-weight-semibold:   600;
+  --font-weight-bold:       700;
+  --font-weight-extrabold:  800;
+
+  /* Line height */
+  --line-height-tight:      1.2;
+  --line-height-snug:       1.35;
+  --line-height-base:       1.5;
+  --line-height-relaxed:    1.65;
+
+  /* Letter spacing */
+  --letter-spacing-tight:   -0.02em;
+  --letter-spacing-normal:  0;
+  --letter-spacing-wide:    0.04em;
+  --letter-spacing-wider:   0.08em;
+
+  /* ============================================================
+     Spacing
+     ============================================================ */
+  --space-1:   4px;
+  --space-2:   5.4px;
+  --space-3:   5.76px;
+  --space-4:   6px;
+  --space-5:   9px;
+  --space-6:   11.52px;
+  --space-7:   12px;
+  --space-8:   14px;
+
+  /* Extended scale for layout */
+  --space-10:  16px;
+  --space-12:  20px;
+  --space-16:  24px;
+  --space-20:  32px;
+  --space-24:  40px;
+  --space-32:  56px;
+  --space-40:  64px;
+  --space-48:  80px;
+  --space-64:  96px;
+
+  /* ============================================================
+     Radius
+     ============================================================ */
+  --radius-xs:   6px;
+  --radius-sm:   50px;   /* pill */
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-none: 0px;
+
+  /* ============================================================
+     Shadows
+     ============================================================ */
+  --shadow-1:        rgb(21, 89, 213) 0px -2px 0px 0px inset;
+  --shadow-card:     0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 4px 20px rgba(0, 0, 0, 0.14);
+  --shadow-modal:    0 20px 60px rgba(0, 0, 0, 0.3);
+  --shadow-sticky:   0 2px 12px rgba(0, 0, 0, 0.1);
+
+  /* ============================================================
+     Motion
+     ============================================================ */
+  --motion-instant:  100ms;
+  --motion-fast:     300ms;
+  --motion-normal:   400ms;
+  --motion-slow:     600ms;
+  --motion-ease:     cubic-bezier(0.25, 0, 0.25, 1);
+  --motion-ease-out: cubic-bezier(0, 0, 0.25, 1);
+  --motion-ease-in:  cubic-bezier(0.75, 0, 1, 1);
+
+  /* ============================================================
+     Z-index scale
+     ============================================================ */
+  --z-base:     0;
+  --z-raised:   10;
+  --z-sticky:   100;
+  --z-drawer:   200;
+  --z-modal:    300;
+  --z-toast:    400;
+}
+
+/* ============================================================
+   Semantic Element Styles
+   ============================================================ */
+
+body {
+  font-family: var(--font-family-stack);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-raised);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1 {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-text-primary);
+}
+
+h2 {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+h3 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-snug);
+}
+
+h4 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-snug);
+}
+
+h5 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-base);
+}
+
+h6 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-base);
+}
+
+p {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+}
+
+a {
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+  transition: color var(--motion-fast) var(--motion-ease-out);
+}
+
+a:hover {
+  color: #0e40a8;
+  text-decoration: underline;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+small {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+}
+
+code {
+  font-family: 'Courier New', monospace;
+  font-size: var(--font-size-md);
+  background: var(--color-surface-muted);
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+}

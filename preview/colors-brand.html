@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Palette — FlowerHorn Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: #f2f4f3; padding: 20px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .swatch-group { display: flex; flex-direction: column; gap: 6px; }
+  .swatch { height: 80px; border-radius: 6px; border: 1px solid rgba(0,0,0,0.08); display: flex; align-items: flex-end; padding: 8px; }
+  .swatch span { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 50px; background: rgba(255,255,255,0.85); color: #090909; letter-spacing: 0.04em; }
+  .label { font-size: 11px; font-weight: 700; color: #333; letter-spacing: 0.04em; }
+  .hex { font-size: 10px; color: #6b7280; font-weight: 500; }
+  .section-title { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #9ca3af; grid-column: 1/-1; margin-top: 6px; }
+  .note { font-size: 11px; color: #9ca3af; grid-column: 1/-1; padding: 8px 10px; background: #fff; border-radius: 6px; border-left: 2px solid #e2e2e2; }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="section-title">Primary — Brand Crimson</div>
+  <div class="swatch-group">
+    <div class="swatch" style="background:#8c2515"><span>#8c2515</span></div>
+    <div class="label">Crimson</div>
+    <div class="hex">color.brand.primary</div>
+  </div>
+  <div class="swatch-group">
+    <div class="swatch" style="background:#6e1c10"><span style="background:rgba(255,255,255,0.75)">#6e1c10</span></div>
+    <div class="label">Crimson Dark</div>
+    <div class="hex">color.brand.primary-dark · hover</div>
+  </div>
+  <div class="swatch-group">
+    <div class="swatch" style="background:#b53020"><span>#b53020</span></div>
+    <div class="label">Crimson Light</div>
+    <div class="hex">color.brand.primary-light · pressed</div>
+  </div>
+  <div class="section-title">Neutrals — System</div>
+  <div class="swatch-group">
+    <div class="swatch" style="background:#0a0f0d"><span style="background:rgba(255,255,255,0.15);color:#fff">#0a0f0d</span></div>
+    <div class="label">Dark Base</div>
+    <div class="hex">color.surface.base · hero / footer</div>
+  </div>
+  <div class="swatch-group">
+    <div class="swatch" style="background:#faf4d8; border:1px solid rgba(0,0,0,0.1)"><span>#faf4d8</span></div>
+    <div class="label">Warm Cream</div>
+    <div class="hex">color.text.inverse · on dark bg</div>
+  </div>
+  <div class="swatch-group">
+    <div class="swatch" style="background:#f2f4f3; border:1px solid rgba(0,0,0,0.08)"><span>#f2f4f3</span></div>
+    <div class="label">Muted Surface</div>
+    <div class="hex">color.surface.muted · backgrounds</div>
+  </div>
+  <div class="section-title">Functional — Single-use only</div>
+  <div class="swatch-group">
+    <div class="swatch" style="background:#3d6b4a"><span style="background:rgba(255,255,255,0.85)">#3d6b4a</span></div>
+    <div class="label">Stock Green</div>
+    <div class="hex">color.status.instock · never use as CTA</div>
+  </div>
+  <div class="note" style="grid-column:2/-1">Only 3 primary brand colors: Crimson, Dark, Cream. Green is reserved for stock status only — not for buttons or decorative use.</div>
+</div>
+</body>
+</html>
